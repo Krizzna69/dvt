@@ -2,14 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>AR Celestial Starmap (Fully Wrapped 360° View)</title>
+  <title>AR Celestial Starmap (Optimized 360°)</title>
   
-  <!-- D3 Celestial Libraries -->
-  <script type="text/javascript" src="../lib/d3.min.js"></script>
-  <script type="text/javascript" src="../lib/d3.geo.projection.min.js"></script>
-  <script type="text/javascript" src="../celestial.min.js"></script>
-  <link rel="stylesheet" href="../celestial.css">
-
   <!-- A-Frame and AR.js -->
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
@@ -20,10 +14,10 @@
 </head>
 <body>
 
-  <!-- AR Scene with Fully Wrapped Celestial Sky -->
+  <!-- AR Scene with 360° Starfield -->
   <a-scene embedded arjs>
-    <!-- 360-degree Fully Wrapped Celestial Sphere -->
-    <a-sky id="ar-celestial-map" radius="5000"></a-sky>
+    <!-- Optimized Static 360° Celestial Sky -->
+    <a-sky src="https://upload.wikimedia.org/wikipedia/commons/6/6a/ESO_-_Milky_Way.jpg" rotation="0 180 0"></a-sky>
 
     <!-- Light for Visibility -->
     <a-light type="directional" position="1 1 1"></a-light>
@@ -31,38 +25,6 @@
     <!-- AR Camera with Rotation Control -->
     <a-camera gps-camera rotation-reader></a-camera>
   </a-scene>
-
-  <!-- Hidden Celestial Map (Used for Canvas Rendering) -->
-  <div id="celestial-container" style="position: absolute; top: -9999px;">
-    <div id="celestial-map"></div>
-  </div>
-
-  <script type="text/javascript">
-    // Generate Celestial Map
-    Celestial.display({
-      location: true,
-      projection: "equirectangular",  // Ensures full 360-degree wrapping
-      datapath: "../data/",
-      planets: { show: true },
-      container: "celestial-map"
-    });
-
-    // Apply Celestial Map to Sky After Rendering
-    setTimeout(() => {
-      let celestialCanvas = document.querySelector("#celestial-map canvas");
-
-      if (celestialCanvas) {
-        console.log("Celestial map canvas found. Converting to texture...");
-
-        let textureUrl = celestialCanvas.toDataURL("image/png");
-        let arSky = document.querySelector("#ar-celestial-map");
-
-        arSky.setAttribute("material", "src", textureUrl);
-      } else {
-        console.error("Celestial canvas NOT found! Star map might not be rendering.");
-      }
-    }, 3000);
-  </script>
 
 </body>
 </html>
