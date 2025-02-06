@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>AR Celestial Starmap (360° View)</title>
+  <title>AR Celestial Starmap (Fully Wrapped 360° View)</title>
   
   <!-- D3 Celestial Libraries -->
   <script type="text/javascript" src="../lib/d3.min.js"></script>
@@ -20,10 +20,10 @@
 </head>
 <body>
 
-  <!-- AR Scene with 360° Sky -->
+  <!-- AR Scene with Fully Wrapped Celestial Sky -->
   <a-scene embedded arjs>
-    <!-- 360-degree Celestial Map -->
-    <a-sky id="ar-celestial-map"></a-sky>
+    <!-- 360-degree Fully Wrapped Celestial Sphere -->
+    <a-sky id="ar-celestial-map" radius="5000"></a-sky>
 
     <!-- Light for Visibility -->
     <a-light type="directional" position="1 1 1"></a-light>
@@ -41,7 +41,7 @@
     // Generate Celestial Map
     Celestial.display({
       location: true,
-      projection: "aitoff",  // A full 360-degree projection
+      projection: "equirectangular",  // Ensures full 360-degree wrapping
       datapath: "../data/",
       planets: { show: true },
       container: "celestial-map"
