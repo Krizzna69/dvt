@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AR Celestial Starmap</title>
+  
+  <!-- D3 Celestial Libraries -->
+  <script type="text/javascript" src="https://github.com/ofrohn/d3-celestial/blob/master/lib/d3.min.js"></script>
+  <script type="text/javascript" src="../lib/d3.geo.projection.min.js"></script>
+  <script type="text/javascript" src="../celestial.min.js"></script>
+  <link rel="stylesheet" href="../celestial.css">
+
+  <!-- A-Frame and AR.js -->
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
+
+  <style>
+    body { margin: 0; overflow: hidden; }
+  </style>
+</head>
+<body>
+
+  <!-- AR Scene -->
+  <a-scene embedded arjs>
+    <!-- Plane to Display the Star Map -->
+    <a-plane id="ar-celestial-map" width="8" height="8" position="0 2 -6" rotation="0 0 0" material="opacity: 1">
+    </a-plane>
+
+    <!-- Light for Better Visibility -->
+    <a-light type="directional" position="1 1 1"></a-light>
+
+    <!-- AR Camera -->
+    <a-camera gps-camera rotation-reader></a-camera>
+  </a-scene>
+
+  <!-- Hidden Celestial Map (Used for Canvas Rendering) -->
+  <div id="celestial-container" style="position: absolute; top: -9999px;">
+    <div id="celestial-map"></div>
+  </div>
+
+  <script type="text/javascript">
+    // Generate Celestial Map
+    Celestial.display({
+      location: true,
+      projection: "airy",
+      datapath: "../data/",
+      planets: { show: true },
+      container: "celestial-map"
+    });
+
+    // Apply Celestial Map to AR Plane After Rendering
+    setTimeout(() => {
+      let celestialCanvas = document.querySelector("#celestial-map canvas");
+
+      if (celestialCanvas) {
+        console.log("Celestial map canvas found. Converting to texture...");
+
+        let textureUrl = celestialCanvas.toDataURL("image/png");
+        let arCelestial = document.querySelector("#ar-celestial-map");
+
+        arCelestial.setAttribute("material", "src", textureUrl);
+        arCelestial.setAttribute("look-at", "[gps-camera]"); // Ensure it faces the camera
+      } else {
+        console.error("Celestial canvas NOT found! Star map might not be rendering.");
+      }
+    }, 3000);
+  </script>
+
+</body>
+</html>
