@@ -7,17 +7,17 @@
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <!-- Include D3 and Celestial Libraries -->
-  <script type="text/javascript" src="../lib/d3.min.js"></script>
-  <script type="text/javascript" src="../lib/d3.geo.projection.min.js"></script>
-  <script type="text/javascript" src="../celestial.js"></script>
-  <link rel="stylesheet" href="../celestial.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/celestial@0.6.5/lib/d3.geo.projection.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/celestial@0.6.5/celestial.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/celestial@0.6.5/celestial.css">
   <style>
-    .btn { display: inline-block; font: bold 14pt "Lucia Console", Consolas, monospace; margin: 0 6px; padding: 2px 6px; border: 2px solid #000; border-radius: 3px; background: rgba(204, 204, 255, 0.6); cursor: pointer; }
+    .btn { display: inline-block; font: bold 14pt "Lucida Console", Consolas, monospace; margin: 0 6px; padding: 2px 6px; border: 2px solid #000; border-radius: 3px; background: rgba(204, 204, 255, 0.6); cursor: pointer; }
   </style>
 </head>
 <body>
   <!-- AR.js Scene -->
-  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: true;">
     <!-- Celestial Map as a 3D Sphere -->
     <a-entity id="celestial-sphere" geometry="primitive: sphere; radius: 5" material="shader: flat; src: #celestial-texture"></a-entity>
     <!-- AR.js Camera -->
