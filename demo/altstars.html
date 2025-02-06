@@ -12,7 +12,16 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/celestial@0.6.5/celestial.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/celestial@0.6.5/celestial.css">
   <style>
-    .btn { display: inline-block; font: bold 14pt "Lucida Console", Consolas, monospace; margin: 0 6px; padding: 2px 6px; border: 2px solid #000; border-radius: 3px; background: rgba(204, 204, 255, 0.6); cursor: pointer; }
+    .btn {
+      display: inline-block;
+      font: bold 14pt "Lucida Console", Consolas, monospace;
+      margin: 0 6px;
+      padding: 2px 6px;
+      border: 2px solid #000;
+      border-radius: 3px;
+      background: rgba(204, 204, 255, 0.6);
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -24,13 +33,17 @@
     <a-entity camera></a-entity>
   </a-scene>
 
+  <!-- Grayscale Toggle Button -->
+  <div class="btn" id="btnColor">Show Grayscale</div>
+
   <!-- Celestial Map Configuration -->
   <script type="text/javascript">
+    // Celestial Map Configuration
     var config = {
       projection: "orthographic",
       background: { fill: "#000000", stroke: "#000000", opacity: 1, width: 4 },
       datapath: "https://ofrohn.github.io/data/",
-      stars: { show: false },
+      stars: { show: true, limit: 6, colors: true, style: { fill: "#ffffff", opacity: 1 } },
       dsos: { show: false },
       mw: { style: { fill: "#ffffff", opacity: "0.05" } },
       constellations: { names: false, lines: false },
