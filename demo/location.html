@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>AR Celestial Starmap</title>
+  <title>AR Celestial Starmap (360° View)</title>
   
   <!-- D3 Celestial Libraries -->
   <script type="text/javascript" src="../lib/d3.min.js"></script>
@@ -20,16 +20,15 @@
 </head>
 <body>
 
-  <!-- AR Scene -->
+  <!-- AR Scene with 360° Sky -->
   <a-scene embedded arjs>
-    <!-- Plane to Display the Star Map -->
-    <a-plane id="ar-celestial-map" width="8" height="8" position="0 2 -6" rotation="0 0 0" material="opacity: 1">
-    </a-plane>
+    <!-- 360-degree Celestial Map -->
+    <a-sky id="ar-celestial-map"></a-sky>
 
-    <!-- Light for Better Visibility -->
+    <!-- Light for Visibility -->
     <a-light type="directional" position="1 1 1"></a-light>
 
-    <!-- AR Camera -->
+    <!-- AR Camera with Rotation Control -->
     <a-camera gps-camera rotation-reader></a-camera>
   </a-scene>
 
@@ -42,13 +41,13 @@
     // Generate Celestial Map
     Celestial.display({
       location: true,
-      projection: "airy",
+      projection: "aitoff",  // A full 360-degree projection
       datapath: "../data/",
       planets: { show: true },
       container: "celestial-map"
     });
 
-    // Apply Celestial Map to AR Plane After Rendering
+    // Apply Celestial Map to Sky After Rendering
     setTimeout(() => {
       let celestialCanvas = document.querySelector("#celestial-map canvas");
 
@@ -56,10 +55,9 @@
         console.log("Celestial map canvas found. Converting to texture...");
 
         let textureUrl = celestialCanvas.toDataURL("image/png");
-        let arCelestial = document.querySelector("#ar-celestial-map");
+        let arSky = document.querySelector("#ar-celestial-map");
 
-        arCelestial.setAttribute("material", "src", textureUrl);
-        arCelestial.setAttribute("look-at", "[gps-camera]"); // Ensure it faces the camera
+        arSky.setAttribute("material", "src", textureUrl);
       } else {
         console.error("Celestial canvas NOT found! Star map might not be rendering.");
       }

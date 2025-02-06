@@ -1,4 +1,4 @@
-/* Copyright 2015 Olaf Frohn https://github.com/ofrohn, see LICENSE */
+
 body {  }
 svg * { cursor:hand; cursor:grab; cursor:-moz-grab; cursor:-webkit-grab; /*cursor: crosshair!important;*/ }
 svg *:active { cursor: grabbing; cursor: -moz-grabbing; cursor: -webkit-grabbing; }
