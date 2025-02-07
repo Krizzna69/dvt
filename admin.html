@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Add Star</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 400px;
+            margin: auto;
+            background: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input, button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background: #e94560;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-box">
+        <h2>Admin Login</h2>
+        <input type="text" id="username" placeholder="Username" required><br>
+        <input type="password" id="password" placeholder="Password" required><br>
+        <button onclick="adminLogin()">Login</button>
+    </div>
+
+    <div class="container hidden" id="admin-panel">
+        <h2>Add Star Details</h2>
+        <input type="text" id="name" placeholder="Star Name" required><br>
+        <input type="number" id="magnitude" placeholder="Magnitude" step="0.01" required><br>
+        <input type="text" id="constellation" placeholder="Constellation" required><br>
+        <input type="text" id="spectral" placeholder="Spectral Type" required><br>
+        <input type="number" id="ra" placeholder="RA (Right Ascension)" step="0.0001" required><br>
+        <input type="number" id="de" placeholder="Declination" step="0.0001" required><br>
+        <button onclick="addStar()">Submit</button>
+    </div>
+
+    <script>
+        function adminLogin() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            
+            if (username === "admin" && password === "admin123") {
+                document.getElementById("login-box").classList.add("hidden");
+                document.getElementById("admin-panel").classList.remove("hidden");
+            } else {
+                alert("Invalid credentials! Try again.");
+            }
+        }
+
+        function addStar() {
+            const name = document.getElementById("name").value;
+            const magnitude = document.getElementById("magnitude").value;
+            const constellation = document.getElementById("constellation").value;
+            const spectralType = document.getElementById("spectral").value;
+            const ra = document.getElementById("ra").value;
+            const de = document.getElementById("de").value;
+
+            fetch("http://localhost:5000/add-star", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, magnitude, constellation, spectralType, ra, de })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Star added successfully!");
+                    document.getElementById("admin-panel").reset();
+                } else {
+                    alert("Error adding star: " + data.error);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+
+</body>
+</html>

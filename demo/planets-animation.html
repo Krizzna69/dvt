@@ -42,7 +42,6 @@ var cfg = Celestial.settings().set({
     dt = new Date();
 
 Celestial.display(cfg);
-/*
 var planets = {"sol": "Sun", "mer": "Mercury", "ven": "Venus", "lun": "Moon", "mar": "Mars", "jup": "Jupiter", 
                "sat": "Saturn", "ura": "Uranus", "nep": "Neptune", "cer": "Ceres", "plu": "Pluto"}
     follow = "",
@@ -56,7 +55,7 @@ for (key in planets) {
     Celestial.rotate({center: p.ephemeris.pos});
   })
 }
-*/
+
 
 function animate() {
   dt.setDate(dt.getDate()+1);
